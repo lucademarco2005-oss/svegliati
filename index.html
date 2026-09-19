@@ -156,7 +156,7 @@
   var TALLY_FORM_ID = "";
   // Opzione B - form nativo: URL che riceve i dati in POST JSON
   // (webhook Google Apps Script, Make/Zapier, Airtable, Supabase function, endpoint email).
-  var ENDPOINT = "";
+  var ENDPOINT = "https://formsubmit.co/ajax/lucademarco2005@gmail.com";
 
   if (TALLY_FORM_ID) {
     document.getElementById("lead").remove();
@@ -188,8 +188,9 @@
     delete d._gotcha; d.privacy = "si"; d.data = new Date().toISOString(); d.fonte = "locandina-qr";
     var btn = document.getElementById("btn"); btn.disabled = true; btn.textContent = "INVIO...";
     if (!ENDPOINT) { console.log("Lead (nessun ENDPOINT configurato):", d); return done(); }
-    fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(d) })
-      .then(done)
+    d._subject = "Nuovo contatto SVEGLIATI: " + d.nome; d._template = "table"; d._captcha = "false";
+    fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(d) })
+      .then(function (r) { if (!r.ok) throw 0; done(); })
       .catch(function () { btn.disabled = false; btn.textContent = "RICONTATTATEMI"; err.textContent = "Invio non riuscito, riprova o scrivici su WhatsApp."; });
   });
 
