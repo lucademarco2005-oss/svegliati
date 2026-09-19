@@ -158,6 +158,9 @@
   // (webhook Google Apps Script, Make/Zapier, Airtable, Supabase function, endpoint email).
   var ENDPOINT = "https://formsubmit.co/ajax/alessandra.cester.apple@gmail.com";
 
+  // Opzione C - Web3Forms (consigliata): chiave da web3forms.com, i contatti arrivano all'email registrata
+  var WEB3FORMS_KEY = "";
+
   if (TALLY_FORM_ID) {
     document.getElementById("lead").remove();
     var f = document.createElement("iframe");
@@ -189,7 +192,9 @@
     var btn = document.getElementById("btn"); btn.disabled = true; btn.textContent = "INVIO...";
     if (!ENDPOINT) { console.log("Lead (nessun ENDPOINT configurato):", d); return done(); }
     d._subject = "Nuovo contatto SVEGLIATI: " + d.nome; d._template = "table"; d._captcha = "false";
-    fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(d) })
+    if (WEB3FORMS_KEY) { ENDPOINT = "https://api.web3forms.com/submit"; d.access_key = WEB3FORMS_KEY; d.subject = d._subject; }
+    var ac = new AbortController(); setTimeout(function () { ac.abort(); }, 12000);
+    fetch(ENDPOINT, { method: "POST", signal: ac.signal, headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(d) })
       .then(function (r) { if (!r.ok) throw 0; done(); })
       .catch(function () { btn.disabled = false; btn.textContent = "RICONTATTATEMI"; err.textContent = "Invio non riuscito, riprova o scrivici su WhatsApp."; });
   });
