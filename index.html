@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SVEGLIATI — L'AI per genitori</title>
+<meta name="description" content="Un percorso pratico per genitori: capire l'intelligenza artificiale, usarla con consapevolezza e parlarne con i propri figli.">
+<meta name="theme-color" content="#F5EFE3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5EFE3;
+    --navy:#12233F;
+    --blue:#1F5BFF;
+    --muted:#5B6478;
+    --line:#E3DACA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--cream);
+    color:var(--navy);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+    min-height:100vh;
+  }
+  main{max-width:480px;margin:0 auto;padding:28px 20px 32px}
+
+  .top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+  h1{
+    font-family:"Fraunces",Georgia,serif;
+    font-weight:800;
+    font-size:clamp(44px,13vw,60px);
+    letter-spacing:-.02em;
+    line-height:1;
+  }
+  h1 .ia{color:var(--blue);position:relative}
+  h1 .ia::after{
+    content:"";position:absolute;left:0;right:0;bottom:-4px;height:4px;
+    background:var(--blue);border-radius:2px;
+  }
+  .illo{width:64px;height:auto;flex-shrink:0}
+
+  .sub{
+    font-family:"Fraunces",Georgia,serif;
+    font-weight:600;
+    font-size:21px;line-height:1.3;
+    margin-top:20px;
+  }
+  .intro{color:var(--muted);font-size:15px;margin-top:10px}
+
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:18px;
+    margin-top:20px;padding:6px 8px;
+    box-shadow:0 1px 0 rgba(18,35,63,.04),0 8px 24px -12px rgba(18,35,63,.18);
+  }
+  iframe{width:100%;border:0;display:block;min-height:520px}
+  form{padding:14px 10px 12px;display:grid;gap:14px}
+  label{display:grid;gap:6px;font-size:14px;font-weight:600}
+  label span,legend span{font-weight:400;color:var(--muted)}
+  input:not([type=radio]):not([type=checkbox]){
+    font:inherit;font-size:16px;font-weight:400;color:var(--navy);
+    border:1.5px solid var(--line);border-radius:10px;padding:13px 12px;background:#FFFDF8;width:100%}
+  input:focus{outline:none;border-color:var(--blue)}
+  fieldset{border:0;display:grid;gap:8px}
+  legend{font-size:14px;font-weight:600;margin-bottom:8px}
+  .opt{display:flex;align-items:center;gap:10px;font-weight:400;font-size:15px;
+    border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;background:#FFFDF8}
+  .opt:has(input:checked){border-color:var(--blue);background:#EEF3FF}
+  .check{display:flex;align-items:flex-start;gap:10px;font-weight:400;font-size:13px;color:var(--muted)}
+  .check a{color:var(--navy)}
+  input[type=radio],input[type=checkbox]{accent-color:var(--blue);width:18px;height:18px;flex-shrink:0;margin-top:1px}
+  button{font:inherit;font-weight:800;letter-spacing:.06em;font-size:16px;color:#fff;background:var(--blue);
+    border:0;border-radius:12px;min-height:56px;cursor:pointer}
+  button:disabled{opacity:.6}
+  .err{color:#B42318;font-size:13px;min-height:0}
+  .err:empty{display:none}
+
+  .thanks{display:none;text-align:center;padding:28px 14px}
+  .thanks h2{font-family:"Fraunces",Georgia,serif;font-size:26px;line-height:1.2}
+  .thanks p{color:var(--muted);margin:14px 0 16px}
+  .wa{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--blue);color:#fff;text-decoration:none;
+    font-weight:700;letter-spacing:.04em;font-size:15px;
+    padding:16px 18px;border-radius:12px;min-height:54px;
+  }
+  .wa:active{transform:translateY(1px)}
+  .wa svg{width:20px;height:20px}
+
+  .note{text-align:center;color:var(--muted);font-size:13px;margin-top:14px}
+  .note a{color:var(--muted)}
+  body.done #lead,body.done #tally{display:none}
+  body.done .thanks{display:block}
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <h1>SVEGL<span class="ia">IA</span>TI</h1>
+    <!-- genitore e figlio per mano -->
+    <svg class="illo" viewBox="0 0 64 80" fill="none" stroke="#12233F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="20" cy="12" r="7"/>
+      <path d="M20 19v28M20 47l-7 26M20 47l7 26M20 26l-10 14M20 26l14 16"/>
+      <circle cx="46" cy="36" r="5.5" stroke="#1F5BFF"/>
+      <path d="M46 42v18M46 60l-5 15M46 60l5 15M46 47l-12-5M46 47l8 9" stroke="#1F5BFF"/>
+    </svg>
+  </div>
+
+  <p class="sub">L'AI è già nella vita di tuo figlio.<br>Impara a conoscerla per accompagnarlo.</p>
+  <p class="intro">Lascia i tuoi contatti per ricevere maggiori informazioni sul percorso dedicato a genitori e famiglie.</p>
+
+  <div class="card">
+    <!-- Se hai un form Tally, metti l'ID in TALLY_FORM_ID (script in fondo) e verra' usato quello -->
+    <div id="tally"></div>
+    <form id="lead" novalidate>
+      <label>Nome e cognome *<input name="nome" autocomplete="name" required></label>
+      <label>Telefono / WhatsApp *<input name="telefono" type="tel" inputmode="tel" autocomplete="tel" required></label>
+      <label>Email <span>(facoltativa)</span><input name="email" type="email" inputmode="email" autocomplete="email"></label>
+      <fieldset>
+        <legend>Cosa ti interessa di più? <span>(facoltativo)</span></legend>
+        <label class="opt"><input type="radio" name="interesse" value="Capire meglio l'AI">Capire meglio l'AI</label>
+        <label class="opt"><input type="radio" name="interesse" value="Imparare a usarla">Imparare a usarla</label>
+        <label class="opt"><input type="radio" name="interesse" value="Come parlarne con mio/a figlio/a">Capire come parlarne con mio/a figlio/a</label>
+        <label class="opt"><input type="radio" name="interesse" value="Tutto il percorso">Tutto il percorso</label>
+      </fieldset>
+      <label class="check"><input type="checkbox" name="privacy" required>Ho letto e accetto l'<a href="privacy.html" target="_blank">informativa privacy</a> *</label>
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+      <p class="err" id="err"></p>
+      <button type="submit" id="btn">RICONTATTATEMI</button>
+    </form>
+
+    <div class="thanks" id="thanks">
+      <h2>Grazie, richiesta ricevuta.</h2>
+      <p>Preferisci scriverci direttamente?</p>
+      <a class="wa" id="wa" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+        SCRIVICI SU WHATSAPP
+      </a>
+    </div>
+  </div>
+
+  <p class="note">Ti contatteremo senza impegno. · <a href="privacy.html">Privacy</a></p>
+</main>
+
+<script>
+  // WhatsApp con messaggio precompilato
+  var WA_NUMBER = "393404112936";
+  var WA_TEXT = "Ciao, ho visto la locandina SVEGLIATI e vorrei avere maggiori informazioni sul percorso.";
+  document.getElementById("wa").href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(WA_TEXT);
+
+  // ===== CONFIGURAZIONE =====
+  // Opzione A - Tally: metti qui l'ID del form (tally.so/r/abc123 -> "abc123"). Se vuoto si usa il form qui sotto.
+  var TALLY_FORM_ID = "";
+  // Opzione B - form nativo: URL che riceve i dati in POST JSON
+  // (webhook Google Apps Script, Make/Zapier, Airtable, Supabase function, endpoint email).
+  var ENDPOINT = "";
+
+  if (TALLY_FORM_ID) {
+    document.getElementById("lead").remove();
+    var f = document.createElement("iframe");
+    f.setAttribute("data-tally-src", "https://tally.so/embed/" + TALLY_FORM_ID + "?hideTitle=1&transparentBackground=1&dynamicHeight=1");
+    f.title = "Richiedi informazioni - SVEGLIATI";
+    document.getElementById("tally").appendChild(f);
+    var t = document.createElement("script");
+    t.src = "https://tally.so/widgets/embed.js";
+    t.onload = function () { Tally.loadEmbeds(); };
+    document.body.appendChild(t);
+  }
+
+  function done() {
+    document.body.classList.add("done");
+    document.getElementById("thanks").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  var form = document.getElementById("lead");
+  if (form) form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var err = document.getElementById("err"), d = Object.fromEntries(new FormData(form));
+    if (d._gotcha) return;
+    if (!d.nome.trim()) return err.textContent = "Inserisci nome e cognome.";
+    if (d.telefono.replace(/\D/g, "").length < 8) return err.textContent = "Inserisci un numero di telefono valido.";
+    if (d.email && !/^\S+@\S+\.\S+$/.test(d.email)) return err.textContent = "L'email non sembra corretta.";
+    if (!d.privacy) return err.textContent = "Serve il consenso privacy per ricontattarti.";
+    err.textContent = "";
+    delete d._gotcha; d.privacy = "si"; d.data = new Date().toISOString(); d.fonte = "locandina-qr";
+    var btn = document.getElementById("btn"); btn.disabled = true; btn.textContent = "INVIO...";
+    if (!ENDPOINT) { console.log("Lead (nessun ENDPOINT configurato):", d); return done(); }
+    fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(d) })
+      .then(done)
+      .catch(function () { btn.disabled = false; btn.textContent = "RICONTATTATEMI"; err.textContent = "Invio non riuscito, riprova o scrivici su WhatsApp."; });
+  });
+
+  // Dopo l'invio del form Tally mostra il messaggio di ringraziamento
+  window.addEventListener("message", function (e) {
+    if (typeof e.data !== "string" || e.data.indexOf("Tally.FormSubmitted") === -1) return;
+    document.body.classList.add("done");
+    document.getElementById("thanks").scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+</script>
+</body>
+</html>
