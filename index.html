@@ -156,7 +156,8 @@
   var TALLY_FORM_ID = "";
   // Opzione B - form nativo: URL che riceve i dati in POST JSON
   // (webhook Google Apps Script, Make/Zapier, Airtable, Supabase function, endpoint email).
-  var ENDPOINT = "https://formsubmit.co/ajax/alessandra.cester.apple@gmail.com";
+  // Google Sheets: incolla qui l'URL /exec dell'Apps Script (vedi google-apps-script.gs)
+  var ENDPOINT = "";
 
   // Opzione C - Web3Forms (consigliata): chiave da web3forms.com, i contatti arrivano all'email registrata
   var WEB3FORMS_KEY = "";
@@ -193,9 +194,12 @@
     if (!ENDPOINT) { console.log("Lead (nessun ENDPOINT configurato):", d); return done(); }
     d._subject = "Nuovo contatto SVEGLIATI: " + d.nome; d._template = "table"; d._captcha = "false";
     if (WEB3FORMS_KEY) { ENDPOINT = "https://api.web3forms.com/submit"; d.access_key = WEB3FORMS_KEY; d.subject = d._subject; }
+    var sheet = ENDPOINT.indexOf("script.google.com") !== -1;
     var ac = new AbortController(); setTimeout(function () { ac.abort(); }, 12000);
-    fetch(ENDPOINT, { method: "POST", signal: ac.signal, headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(d) })
-      .then(function (r) { if (!r.ok) throw 0; done(); })
+    fetch(ENDPOINT, sheet
+      ? { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(d) }
+      : { method: "POST", signal: ac.signal, headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(d) })
+      .then(function (r) { if (!sheet && !r.ok) throw 0; done(); })
       .catch(function () { btn.disabled = false; btn.textContent = "RICONTATTATEMI"; err.textContent = "Invio non riuscito, riprova o scrivici su WhatsApp."; });
   });
 
